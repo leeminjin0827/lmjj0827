@@ -13,27 +13,27 @@ public class MemberDto { // DTO : 서로 다른 레이어(MVC패턴)들 간의 �
 	// 1. 멤버변수/필드/속성 : 객체가 가질수 있는 고유한 값 를 저장하는 속성명
 	private int mno;			// 회원번호
 	private String mid;			// 회원아이디
-	private String mpwq;		// 회원비밀번호
+	private String mpwd;		// 회원비밀번호
 	private String mname;		// 이름
 	private String mphone;		// 연락처
 	private String mdate;		// 가입일
 	
 	// 2. 생성자 // 자동생성 : 클래스 { } 안에서 오른쪽 클릭 -> [source] -> [ Generate Constructor ]
 	public MemberDto() {}
-	public MemberDto(int mno, String mid, String mpwq, String mname, String mphone, String mdate) {
+	public MemberDto(int mno, String mid, String mpwd, String mname, String mphone, String mdate) {
 		super();
 		this.mno = mno;
 		this.mid = mid;
-		this.mpwq = mpwq;
+		this.mpwd = mpwd;
 		this.mname = mname;
 		this.mphone = mphone;
 		this.mdate = mdate;
 	}
 	// 회원가입에 적합한 생성자
-	public MemberDto(String mid, String mpwq, String mname, String mphone) {
+	public MemberDto(String mid, String mpwd, String mname, String mphone) {
 		super();
 		this.mid = mid;
-		this.mpwq = mpwq;
+		this.mpwd = mpwd;
 		this.mname = mname;
 		this.mphone = mphone;
 	}
@@ -43,7 +43,7 @@ public class MemberDto { // DTO : 서로 다른 레이어(MVC패턴)들 간의 �
 	// 자동생성 : 클래스 { } 안에서 빈칸에 오른쪽 클릭 -> [source] -> [ Generate toString ]
 	@Override
 	public String toString() {
-		return "MemberDto [mno=" + mno + ", mid=" + mid + ", mpwq=" + mpwq + ", mname=" + mname + ", mphone=" + mphone
+		return "MemberDto [mno=" + mno + ", mid=" + mid + ", mpwd=" + mpwd + ", mname=" + mname + ", mphone=" + mphone
 				+ ", mdate=" + mdate + "]";
 	};
 	
@@ -59,11 +59,11 @@ public class MemberDto { // DTO : 서로 다른 레이어(MVC패턴)들 간의 �
 	public void setMid(String mid) {
 		this.mid = mid;
 	}
-	public String getMpwq() {
-		return mpwq;
+	public String getMpwd() {
+		return mpwd;
 	}
-	public void setMpwq(String mpwq) {
-		this.mpwq = mpwq;
+	public void setMpwd(String mpwd) {
+		this.mpwd = mpwd;
 	}
 	public String getMname() {
 		return mname;
