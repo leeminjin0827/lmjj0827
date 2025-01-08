@@ -32,7 +32,7 @@ public class Example1 {
 				int menu = scan.nextInt();
 				System.out.println("1.게시물등록 2.게시물출력");
 				if( menu == 1 ) {
-					bv.boarAdd( scan , boars );
+					bv.boarAdd(scan, boars);
 				}else if( menu == 2 ) {
 					bv.BoarPrint( boars );
 				}

@@ -99,8 +99,7 @@
 				# on update/delete
 				# restrict(기본값)	: fk가 pk를 참조중 이면 pk 레코드를 삭제/수정 불가능
 				# cascade			: pk 값이 삭제/수정 되면 fk 같이 삭제/수정
-		        # ser null			: pk 값이 삭제/수정 되면 fk는 참조 없애고 null 변경
-		
+		        # set null			: pk 값이 삭제/수정 되면 fk는 참조 없애고 null 변경
 		
 	* 관계형 데이터베이스의 관례적으로 기본키는 테이블당 1개 이상 갖는다.
 	

@@ -54,8 +54,8 @@ public class MainView {
 	    // 응답에 따른 처리
 	    if( result ) {System.out.println("로그인 성공"); }
 	    else { System.out.println("회원정보가 없습니더."); }
-	} // f end
-	   
+	}
+	
 	// [3] 회원 로그아웃 메소드
 	public void mLogout() {
 	         

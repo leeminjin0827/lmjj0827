@@ -58,3 +58,4 @@ delete from table1;
 
 # 2. 특정 레코드 삭제		: delete from 테이블명 where [조건절];
 delete from table1 where mno = 3;
+
