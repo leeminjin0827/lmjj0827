@@ -33,7 +33,7 @@ public class MainDao {
 	// - 싱글톤
 	
 	// 2. 로그인 SQL 처리 메소드
-	public int login( MemberDto memberDto ) {
+	public int mlogin( MemberDto memberDto ) {
 		try {
 			// [1] SQL 작성
 			String sql = "select mno from member where mid = ? and mpwd = ?";

@@ -43,17 +43,18 @@ public class MainView {
 	// [2] 회원 로그인 메소드
 	public void mLogin() {
 		// 입력
-		System.out.println("아이디 : ");		String mid = scan.next();
-		System.out.println("비밀번호 : ");	String mpwd = scan.next();
+		System.out.print("아이디 : ");	String mid = scan.next();
+		System.out.print("비밀번호 : ");	String mpwd = scan.next();
 		// 객체화
 	    MemberDto memberDto = new MemberDto();
 	    memberDto.setMid(mid);
 	    memberDto.setMpwd(mpwd);
 	    // 컨트롤러에게 전달하고 응답 받기
-	    boolean result = MainController.getinstance().login(memberDto);
-	    if( result ) {syso
-	    
-	}
+	    boolean result = MainController.getinstance().mlogin(memberDto);
+	    // 응답에 따른 처리
+	    if( result ) {System.out.println("로그인 성공"); }
+	    else { System.out.println("회원정보가 없습니더."); }
+	} // f end
 	   
 	// [3] 회원 로그아웃 메소드
 	public void mLogout() {
