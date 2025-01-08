@@ -17,7 +17,7 @@ public class MainView {
 	// 2 : 기업 로그인 / 회원가입 메소드 연동 -> 성공 시 기업 view 연동 
 	// 3 : 취업 연동
 	
-	   public void run() {
+	public void run() {
 	      System.out.println("1.일반 2.기업");
 	      int choose = scan.nextInt();
 	      if( choose == 1 ) { 
@@ -34,41 +34,45 @@ public class MainView {
 	    	  else if( choose1 == 2 ) { eLogin(); }
 	    	  else if( choose1 == 3 ) { eLogout(); }
 	      } // if end 
-	   } // v end
-	   // [1] 회원 회원가입 메소드
-	   public void mSignUp() {
+	} // v end
+	// [1] 회원 회원가입 메소드
+	public void mSignUp() {
 	         
-	   }
+	}
 	   
-	   // [2] 회원 로그인 메소드
-	   public void mLogin() {
-	         System.out.println("아이디 : ");		String mid = scan.next();
-	         System.out.println("비밀번호 : ");	String mpwd = scan.next();
-	         MemberDto memberDto = new MemberDto();
-	         memberDto.setMid(mid);
-	         memberDto.setMpwd(mpwd);
-	         boolean result = MainController.getinstance().login(memberDto);
-	         
-	   }
+	// [2] 회원 로그인 메소드
+	public void mLogin() {
+		// 입력
+		System.out.println("아이디 : ");		String mid = scan.next();
+		System.out.println("비밀번호 : ");	String mpwd = scan.next();
+		// 객체화
+	    MemberDto memberDto = new MemberDto();
+	    memberDto.setMid(mid);
+	    memberDto.setMpwd(mpwd);
+	    // 컨트롤러에게 전달하고 응답 받기
+	    boolean result = MainController.getinstance().login(memberDto);
+	    if( result ) {syso
+	    
+	}
 	   
-	   // [3] 회원 로그아웃 메소드
-	   public void mLogout() {
+	// [3] 회원 로그아웃 메소드
+	public void mLogout() {
 	         
-	   }
+	}
 	   
-	   // [1] 기업 회원가입 메소드
-	   public void eSignUp() {
+	// [1] 기업 회원가입 메소드
+	public void eSignUp() {
 	         
-	   }
+	}
 	   
-	   // [2] 기업 로그인 메소드
-	   public void eLogin() {
+	// [2] 기업 로그인 메소드
+	public void eLogin() {
 	         
-	   }
+	}
 	   
-	   // [3] 기업 로그아웃 메소드
-	   public void eLogout() {
+	// [3] 기업 로그아웃 메소드
+	public void eLogout() {
 	         
-	   }
+	}
 	   
 } // c end
