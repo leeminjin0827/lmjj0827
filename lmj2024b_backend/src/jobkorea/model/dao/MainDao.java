@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jobkorea.model.dto.EnterpriseDto;
 import jobkorea.model.dto.MemberDto;
 
 public class MainDao {
@@ -32,8 +33,8 @@ public class MainDao {
 	public static MainDao getinstance() { return instance; }
 	// - 싱글톤
 	
-	// 2. 로그인 SQL 처리 메소드
-	public int mlogin( MemberDto memberDto ) {
+	// 2. 일반 회원 SQL 처리 메소드
+	public int mLogin( MemberDto memberDto ) {
 		try {
 			// [1] SQL 작성
 			String sql = "select mno from member where mid = ? and mpwd = ?";
@@ -48,6 +49,28 @@ public class MainDao {
 			if( rs.next() ) {
 				int mno = rs.getInt("mno");
 				return mno;
+			} // if end
+		} // try end
+		catch( SQLException e ) { System.out.println( e ); }
+		return 0;
+	} // f end
+	
+	// 2 기업 회원 SQL 처리 메소드
+	public int eLogin( EnterpriseDto enterpriseDto ) {
+		try {
+			// [1] SQL 작성
+			String sql = "select eno from enterprise where eid = ? and epwd = ?";
+			// [2] DB와 연동된 곳에 SQL 기재
+			PreparedStatement ps = conn.prepareStatement(sql);
+			// [*] 기재된 SQL 에 매개변수 값 대입
+			ps.setString(1, enterpriseDto.getEid() );
+			ps.setString(2, enterpriseDto.getEpwd());
+			// [3] 기재된 SQL 실행하고 결과 받기
+			ResultSet rs = ps.executeQuery();
+			// [4] 결과에 따른 처리 및 반환
+			if( rs.next() ) {
+				int eno = rs.getInt("eno");
+				return eno;
 			} // if end
 		} // try end
 		catch( SQLException e ) { System.out.println( e ); }

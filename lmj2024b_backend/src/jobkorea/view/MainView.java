@@ -3,6 +3,7 @@ package jobkorea.view;
 import java.util.Scanner;
 
 import jobkorea.Controller.MainController;
+import jobkorea.model.dto.EnterpriseDto;
 import jobkorea.model.dto.MemberDto;
 
 public class MainView {
@@ -52,7 +53,7 @@ public class MainView {
 	    memberDto.setMid(mid);
 	    memberDto.setMpwd(mpwd);
 	    // 컨트롤러에게 전달하고 응답 받기
-	    boolean result = MainController.getinstance().mlogin(memberDto);
+	    boolean result = MainController.getinstance().mLogin(memberDto);
 	    // 응답에 따른 처리
 	    if( result ) {System.out.println("로그인 성공"); }
 	    else { System.out.println("회원정보가 없습니더."); }
@@ -70,7 +71,17 @@ public class MainView {
 	   
 	// [2] 기업 로그인 메소드
 	public void eLogin() {
-	         
+		System.out.print("아이디 : ");	String eid = scan.next();
+		System.out.print("비밀번호 : ");	String epwd = scan.next();
+		// 객체화
+	    EnterpriseDto enterpriseDto = new EnterpriseDto();
+	    enterpriseDto.setEid(eid);
+	    enterpriseDto.setEpwd(epwd);
+	    // 컨트롤러에게 전달하고 응답 받기
+	    boolean result = MainController.getinstance().eLogin(enterpriseDto);
+	    // 응답에 따른 처리
+	    if( result ) {System.out.println("로그인 성공"); }
+	    else { System.out.println("회원정보가 없습니더."); }
 	}
 	   
 	// [3] 기업 로그아웃 메소드
