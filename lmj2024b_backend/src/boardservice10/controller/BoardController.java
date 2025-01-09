@@ -19,4 +19,12 @@ public class BoardController {
 		return result;
 	} // f end
 	
+	// 2. 개별 게시물 컨트롤러 메소드
+	public BoardDto findById( int bno ) {
+		BoardDto boardDto = BoardDao.getinstance().findById( bno );
+		return boardDto;
+	} // f end
+	
+	
+	
 } // c end

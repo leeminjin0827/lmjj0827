@@ -24,3 +24,11 @@ delete from member where mno = 1;
 # [7] 회원수정		update 테이블명 set 속성명 = 새로운값 , 속성명 = 새로운값 where 조건
 update member set mpwd = 'qwe1' , mname = '유재석' , mphone = '010-4444-4444' where mno = 2;
 # JDBC : update member set mpwd = ? , mname = ? , mphone = ? where mno = ?;
+
+# [8] 전체 게시물 조회 select * from 테이블명;
+select * from board;
+# JDBC : select * from board;
+
+# [9] 개별 게시물 조회 select * from 테이블며 where 조건;
+select * from board where bno = 3;
+# JDBC : select * from board bno = ?;

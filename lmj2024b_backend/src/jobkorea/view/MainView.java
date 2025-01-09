@@ -18,6 +18,7 @@ public class MainView {
 	// 3 : 취업 연동
 	
 	public void run() {
+		while(true) {
 	      System.out.println("1.일반 2.기업");
 	      int choose = scan.nextInt();
 	      if( choose == 1 ) { 
@@ -34,6 +35,7 @@ public class MainView {
 	    	  else if( choose1 == 2 ) { eLogin(); }
 	    	  else if( choose1 == 3 ) { eLogout(); }
 	      } // if end 
+		} // w end
 	} // v end
 	// [1] 회원 회원가입 메소드
 	public void mSignUp() {
