@@ -8,24 +8,12 @@ import java.sql.SQLException;
 
 import boardservice10.model.dto.MemberDto;
 
-public class MemberDao {
+public class MemberDao extends Dao {
 	
-	private Connection conn;	// DB와 연동 결과를 조작하는 인터페이스
-	private String dburl = "jdbc:mysql://localhost:3306/boardservice10"; // 연동할 DB 서버의 URL
-	private String dbuser = "root"; // 연동할 DB 서버의 계정명
-	private String dbpwd = "1234"; // 연동할 DB 서버의 비밀번호
+
 	// + 싱글톤
 	private static MemberDao instance = new MemberDao();
-	private MemberDao() {
-		try {
-			// 1. JDBC 클래스 드라이버 로드 , Class.forname() * 예외처리 try{}catch(){}
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			// 2. 성정한 경로/계정/비밀번호 로 DB 서버 연동 시도 하고 결과를 () 반환
-			conn = DriverManager.getConnection( dburl , dbuser , dbpwd );
-		}catch( Exception e ) {
-			System.out.println("[DB 연동 실패]" + e );
-		} // try end
-	}
+	private MemberDao() {}
 	public static MemberDao getinstance() { return instance; }
 	// - 싱글톤
 	
@@ -122,13 +110,14 @@ public class MemberDao {
 		return null; // 몾찾았다. null 반환
 	} // f end
 	
-	// 5. 내정보기 보기 SQL 처리 메소드
+	// 5. 내정보 보기 SQL 처리 메소드
 	public MemberDto myInfo ( int loginMno ) {
 	try {
 		// [1] SQL 작성한다.
 		String sql = "select * from member where mno = ? ";
 		// [2] DB와 연동된 곳에 SQL 기재한다.
 		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt( 1 , loginMno );
 		// [3] 기재된 SQL를 실행하고 결과를 받는다.
 		ResultSet rs = ps.executeQuery();
 		// [4] 결과에 따른 처리 및 반환을 한닫.
@@ -157,13 +146,25 @@ public class MemberDao {
 		return;
 	} // f end
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 7. 회원수정 SQL 처리 메소드
+	public boolean update( MemberDto memberDto ) {
+		try {
+			// [1] SQL 작성한다.
+			String sql = "update member set mpwd = ? , mname = ? , mphone = ? where mno = ?";
+			// [2] DB와 연동된 곳에 SQL 기재한다.
+			PreparedStatement ps = conn.prepareStatement(sql);
+			// [*] 기재된 SQL 에 매개변수 값 대입한다.
+			ps.setString( 1 , memberDto.getMpwd() );
+			ps.setString( 2 , memberDto.getMname() );
+			ps.setString( 3 , memberDto.getMphone() );
+			ps.setInt( 4 , memberDto.getMno() );
+			// [3] 기재된 SQL를 실행하고 결과를 받는다.
+			int count = ps.executeUpdate();
+			// [4] 결과에 따른 처리 및 반환을 한다.
+			if( count == 1 ) { return true; } // 수정 성공 했을때
+		} // try end
+		catch( SQLException e ) { System.out.println( e ); }
+		return false; // 수정 실패 했을때
+	} // f end
 	
 } // c end
