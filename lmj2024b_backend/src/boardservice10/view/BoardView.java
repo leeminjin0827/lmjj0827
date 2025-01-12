@@ -42,8 +42,8 @@ public class BoardView {
 			// index는 0부터 리스트의 마지막 인덱스(요소개수-1) 까지 1씩 증가 반복
 			BoardDto boardDto = result.get(index); // index번째의 요소 객체를 꺼내기
 			System.out.print( boardDto.getBno() + "\t" );	// \t : 들여쓰기
-			System.out.print( boardDto.getCno() + "\t" );
-			System.out.print( boardDto.getMno() + "\t" );
+			System.out.print( boardDto.getCname() + "\t" );
+			System.out.print( boardDto.getMid() + "\t" );
 			System.out.print( boardDto.getBdate() + "\t" );
 			System.out.print( boardDto.getBtitle() + "\n" ); // \n : 줄바꿈
 		} // for end
@@ -53,17 +53,14 @@ public class BoardView {
 	public void findById() {
 		// 0. 입력받기
 		System.out.println(">> 게시물 번호 : ");	int bno = scan.nextInt(); // 입력받기
-		
 		// 1. 컨트롤러 에게 요청하고 결과를 받는다.
 		BoardDto result = BoardController.getinstance().findById( bno );
 		// 2. 결과
+		System.out.println( result.getCno()+"\t"+result.getMno()+
+				"\t"+result.getBview()+"\t"+result.getBdate() );
 		System.out.println( result.getBtitle() );
-		System.out.println( result.getCno()+"\t"+result.getMno()+"\t"+result.getBview()+"\t"+result.getBdate() );
 		System.out.println( result.getBcontent() );
 			// -- 댓글출력되는 코드
-		
-		
-		
 		
 	} // f end
 	

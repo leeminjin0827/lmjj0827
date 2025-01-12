@@ -38,7 +38,7 @@ public class MemberDao extends Dao {
 		try {
 			// int : SQL로 조화된 회원번호를 반환하기 위해서
 			// [1] SQL 작성한다.
-			String sql = "select mno from member where mid = ? and mpwd = ? ";
+			String sql = "select mno from member where mid = ? and mpwd = ?";
 			// [2] DB와 연동된 곳에 SQL 기재한다.
 			PreparedStatement ps = conn.prepareStatement(sql);
 			// [*] 기재된 SQL 에 매개변수 값 대입한다.

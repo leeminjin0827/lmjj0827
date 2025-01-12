@@ -20,7 +20,9 @@ public class BoardDao extends Dao {
 		// * 조회된 레코드(=BoardDto) 한개씩 저장하여 ㅇ러개 레코드(=BoardDto) 를 저장하는 리스트 객체
 		ArrayList<BoardDto> list = new ArrayList<>();
 		try {
-			String sql = "select * from board";
+			String sql = "select b.* , c.cname , m.mid "
+					+ "from board as b inner join category as c on b.cno = c.cno "
+					+ "inner join member as m on b.mno = m.mno";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while( rs.next() ){
@@ -36,6 +38,10 @@ public class BoardDao extends Dao {
 				int cno = rs.getInt("cno");
 				// 2. 반환 속성값들을 dto(객체)로 만들기
 				BoardDto boardDto = new BoardDto(bno , btitle , bcontent , bview , bdate , mno , cno );
+				
+				boardDto.setCname( rs.getString("cname") );
+				boardDto.setMid(rs.getString("mid") );
+				
 				// 3. 생성된 dto(객체)를 리스트에 담기
 				list.add(boardDto);
 			} // w end
@@ -46,7 +52,9 @@ public class BoardDao extends Dao {
 	// 2. 개별 게시물 SQL 처리 메소드
 	public BoardDto findById( int bno ) {
 		try {
-			String sql = "select * from board where bno = ?";
+			String sql = "select b.* , c.cname , m.mid"
+					+ "	from board as b inner join category as c on b.cno = c.cno"
+					+ "	inner join member as m on b.mno = m.mno where b.bno = 3";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt( 1 , bno );
 			ResultSet rs = ps.executeQuery();
