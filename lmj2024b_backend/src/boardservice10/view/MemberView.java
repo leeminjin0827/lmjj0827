@@ -10,7 +10,7 @@ public class MemberView {
 	// + 싱글톤
 	private static MemberView instance = new MemberView();
 	private MemberView() {}
-	public static MemberView getinstance() {
+	public static MemberView getInstance() {
 		return instance;
 	}
 	// - 싱글톤
@@ -35,7 +35,7 @@ public class MemberView {
 		System.out.println("이름 : ");	String mname = scan.next();
 		System.out.println("전화번호 : ");	String mphone = scan.next();
 		MemberDto memberDto = new MemberDto(mid , mpwd , mname , mphone);
-		boolean result = MemberController.getinstance().signup( memberDto );
+		boolean result = MemberController.getInstance().signup( memberDto );
 		if( result ) { System.out.println("[회원가입 성공]"); }
 		else { System.out.println("[회원가입 실패]"); }
 	} // f end
@@ -47,18 +47,18 @@ public class MemberView {
 		System.out.println("비밀번호 : ");	String mpwd = scan.next();
 		MemberDto memberDto = new MemberDto();
 		memberDto.setMid(mid);	memberDto.setMpwd(mpwd);
-		boolean result = MemberController.getinstance().login( memberDto );
+		boolean result = MemberController.getInstance().login( memberDto );
 		if( result ) {
 			System.out.println("[로그인 성공]");
 			// BoardView 메인메뉴 메소드 호출
-			BoardView.getinstance().index();
+			BoardView.getInstance().index();
 		}else { System.out.println("[동일한 회원정보가 없습니다.]"); }
 	} // f end
 	
 	// 2-2. 로그아웃 화면 메소드
 	public void logout() {
 		// 순서 : 입력x , 객체x , 컨트롤러요청
-		MemberController.getinstance().logout();
+		MemberController.getInstance().logout();
 		System.out.println("로그아웃 되었습니다.");
 	} // f end
 	
@@ -74,7 +74,7 @@ public class MemberView {
 		MemberDto memberDto = new MemberDto();
 		memberDto.setMname(mname);		memberDto.setMphone(mphone);
 		// [3] 컨트롤러 에게 전달(request/요청/매개변수) 하고  응갑(response/응답/리턴) 결과 받기
-		String result = MemberController.getinstance().findId( memberDto );
+		String result = MemberController.getInstance().findId( memberDto );
 		// [4] 컨트롤러 의 결과에 따른 처리
 		if( result != null ) { System.out.println("모든 아이디 : " + result ); }
 		else { System.out.println("[동일한 회원 정보가 없습니다.]"); }
@@ -89,7 +89,7 @@ public class MemberView {
 		MemberDto memberDto = new MemberDto();
 		memberDto.setMid(mid); memberDto.setMphone(mphone);
 		// [3] 컨트롤러 에게 전달 하고 응답 결과 받기
-		String result = MemberController.getinstance().findPwd( memberDto );
+		String result = MemberController.getInstance().findPwd( memberDto );
 		// [4] 컨트롤러 의 결과에 따른 처리
 		if( result != null ) { System.out.println("찾은 비밀번호 : " + result ); }
 		else { System.out.println("[동일한 회원 정보가 없습니다.]"); }
@@ -98,7 +98,7 @@ public class MemberView {
 	// 5. 내정보 보기 화면 메소드
 	public int myInfo() {
 		// 받는곳 = MemberController.getinstance().myInfo( 주는곳 );
-		MemberDto result = MemberController.getinstance().myInfo();
+		MemberDto result = MemberController.getInstance().myInfo();
 		// 4.
 		System.out.println("====== 마이 페이지 ======");
 		System.out.println("mid : " + result.getMid() );
@@ -124,7 +124,7 @@ public class MemberView {
 		System.out.println("정말 회원 탈퇴 하실건가요? 0:예 1:취소" ); // 버튼 클릭이 없으므로 키보드 입력으로 처리해야 한다.
 		int choose2 = scan.nextInt();
 		if( choose2 == 0 ) {
-			MemberController.getinstance().delete(); // - 탈퇴처리 컨트롤러 요청
+			MemberController.getInstance().delete(); // - 탈퇴처리 컨트롤러 요청
 			return 0; // 탈퇴 했다.
 		} // if end
 		return 1; // 탈퇴 안했다.
@@ -138,7 +138,7 @@ public class MemberView {
 		System.out.println("새로운 전화번호 : ");	String mphone = scan.next();
 		MemberDto memberDto = new MemberDto();
 		memberDto.setMpwd(mpwd); memberDto.setMname(mname); memberDto.setMphone(mphone);
-		boolean result = MemberController.getinstance().update( memberDto );
+		boolean result = MemberController.getInstance().update( memberDto );
 		if( result ) { System.out.println("[수정 완료]"); }
 		else { System.out.println("[수정 실패]"); }
 	}

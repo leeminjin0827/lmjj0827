@@ -14,7 +14,7 @@ public class MemberDao extends Dao {
 	// + 싱글톤
 	private static MemberDao instance = new MemberDao();
 	private MemberDao() {}
-	public static MemberDao getinstance() { return instance; }
+	public static MemberDao getInstance() { return instance; }
 	// - 싱글톤
 	
 	// 1. 회원가입 SQL 처리 메소드

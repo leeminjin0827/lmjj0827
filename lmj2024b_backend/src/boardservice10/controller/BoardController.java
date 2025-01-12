@@ -10,7 +10,7 @@ public class BoardController {
 	// + 싱글톤
 	private static BoardController instance = new BoardController();
 	private BoardController () {}
-	public static BoardController getinstance() { return instance; }
+	public static BoardController getInstance() { return instance; }
 	// - 싱글톤
 		
 	// 1. 전체 게시물 컨트롤러 메소드

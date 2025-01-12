@@ -11,7 +11,7 @@ public class StudentView {
 	// + 싱글톤
 	private static StudentView instance = new StudentView();
 	private StudentView() {}
-	public static StudentView getinstance() { return instance; }
+	public static StudentView getInstance() { return instance; }
 	// - 싱글톤
 	
 	private Scanner scan = new Scanner(System.in);
