@@ -38,8 +38,9 @@ public class UserService {
 					usersave = false;
 					System.out.println("로그인 실패");
 				}
-			}return; // if end
+			}return true; // if end
 		} // f end
+		return usersave;
 	} // v end
 } // c end
 	
