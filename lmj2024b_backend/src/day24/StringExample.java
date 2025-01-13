@@ -1,5 +1,7 @@
 package day24;
 
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class StringExample {
@@ -24,48 +26,55 @@ public class StringExample {
 		System.out.println( value1.equals(value2) ); // true 	// 인스턴스 안에 값 비교		// 힘 값 비교
 		
 		// [4] String 클래스
+	
 		// 1. 배열을 이용한 문자열 표현
 		char[ ] str1 = new char[] {'유' , '재' , '석' };
+		
 		// 2. "" 리터럴 이용한 문자열
 		String str2 = "유재석";		// 상수풀(리터럴) 의 "유재석"
+		
 		// 3. 생성자 이용한 문자열
 		String str3 = new String("유재석");	// 인스턴스의 "유재석"
-		
 		System.out.println( str2 == str3 );			// false
 		System.out.println( str2.equals(str3) );	// true
 		String str4 = "유재석";
 		System.out.println( str2 == str4 );			// true
 		
 		// [5] String 주요 메소드
-		// 1.
+		
+			// 1.
 		String str5 = "자바".concat("프로그래밍");
 		System.out.println( str5 ); // 자바프로그래밍
-		// 2.
+		
+			// 2.
 		StringBuilder builder = new StringBuilder();
 		builder.append("자바");
 		builder.append("프로그래밍");
 		System.out.println( builder ); // 자바프로그래밍
-		// 3.
+		
+			// 3.
 		String str6 = String.format("%s %s" , "자바" , "프로그래밍" );
 		System.out.println( str6 ); // 자바 프로그래밍
-		// 4.
+		
+			// 4.
 		String str7 = "";
 		str7 += "자바";				// 문자열1개
 		str7 += "프로그래밍";			// 문자열1개
 		System.out.println( str7 ); // 자바프로그래밍
-		// 5. .charAt( 인덱스 )
+		
+			// 5. .charAt( 인덱스 )
 		char gender = "012345-1230123".charAt(7);
 		System.out.println( gender ); // 1
 		// [활용] .nextChar() 없는 이유는 .next().charAt(0) : 한글자 입력
 		// Scanner scan = new Scanner(System.in);
 		// char ch = scan.next().charAt(0); // // 입력받은 문자열의 첫글자 추출
 		
-		// 6. .length()
+			// 6. .length()
 		System.out.println( "012345-1230123".length() ); // 길이:14,인덱스:0~13
 		// [활용] 반복문 : 변수명.length()-1 [마지막 인덱스]
 		// for( int index = 0; index <= 변수명.length() - 1; index++ ){ }
 		
-		// 7. .replace( 기존문자열 , 새로운문자열 );
+			// 7. .replace( 기존문자열 , 새로운문자열 );
 		String str8 = "자바프로그래밍".replace("자바", "JAVA");
 		System.out.println( str8 ); // JAVA프로그래밍
 		// [활용] html(<br/>) --> java(\n);
@@ -75,6 +84,57 @@ public class StringExample {
 		System.out.println( javaData );
 		// 유재석
 		// 안녕하세요.
+		
+			// 8. .subString( 시작인덱스 , [끝인덱스] ) :
+		// 첫번째 인덱스부터 6번인덱스 전까지 추출
+		String str9 = "012345-1230123".substring( 0 , 6 );
+		System.out.println( str9 ); // 012345
+		
+		// 7번인덱스부터 (끝인덱스생략)마지막 인덱스 까지 추출
+		String str10 = "012345-01230123".substring(7); // 끝인덱스 생략 
+		System.out.println( str10 ); // 01230123
+		
+			// 9. .split("구분문자") :
+		String[] str11 = "012345-1230123".split("-");
+		System.out.println( str11[0] ); // 012345
+		System.out.println( str11[1] ); // 1230123
+		
+			// 10. .indexOf("찾을문자열")
+		int findIndex = "자바 프로그래밍 언어".indexOf("자바");
+		System.out.println( findIndex ); // 0
+			// [활용] : 문자열 검색
+		
+			// 11. .contains("찾을문자열")
+		boolean findBool = "자바 프로그래밍 언어".contains("자바");
+		System.out.println( findBool ); // true
+		
+			// 12. .getBytes()
+		byte[] str12 = "JAVA PROGRAM".getBytes();
+		System.out.println( Arrays.toString( str12 ) );
+		// [74, 65, 86, 65, 32, 80, 82, 79, 71, 82, 65, 77]
+			// - 영문/일부특수문자 : 문자1개당 1바이트( 아스키코드 )
+		System.out.println("ab".getBytes().length ); // 2
+			// - 한글 : 문자1개당 2바이트( 유니코드 ) + 1바이트(utf-8규칙정보) => 3바이트
+		System.out.println("가나".getBytes().length ); // 6
+			// char 2바이트 표현   short +-32,000개 --> short unsigned 65,536개
+			// --> char 유니코드로 된 문자 1개 표현
+			// [활용] : 인증코드만들기
+		
+		String code = ""; 
+		for( int i = 1 ; i<=6; i++ ) {
+			
+			System.out.println( new Random() );					// 랜덤(난수) 관련 클래스
+			System.out.println( new Random().nextInt() );		// int타입의 난수 반환함수
+			System.out.println( new Random().nextInt(26) );		// 0 ~ 25 사이의 난수 반환 함수	
+			System.out.println( new Random().nextInt(26)+97); // 97 ~ 122 사이의 난수 반환 함수
+			System.out.println( (char)( new Random().nextInt(26) + 97) );
+			
+			code += (char)( new Random().nextInt() ); 
+		} // f end
+		System.out.println( code ); // 임의의 난수 문자열 생성
+		
+		
+		
 
 		
 	} // m end
