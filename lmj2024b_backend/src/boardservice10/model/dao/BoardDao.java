@@ -12,7 +12,7 @@ public class BoardDao extends Dao {
 	// + 싱글톤
 	private static BoardDao instance = new BoardDao();
 	private BoardDao() {}
-	public static BoardDao getinstance() { return instance; }
+	public static BoardDao getInstance() { return instance; }
 	// - 싱글톤
 	
 	// 1. 전체 게시물 SQL 처리 메소드
@@ -45,6 +45,7 @@ public class BoardDao extends Dao {
 				// 3. 생성된 dto(객체)를 리스트에 담기
 				list.add(boardDto);
 			} // w end
+			
 		}catch( SQLException e ) { System.out.println( e ); }
 		return list; // 생성된 arraylist 객체 반환
 	} // f end
@@ -52,9 +53,9 @@ public class BoardDao extends Dao {
 	// 2. 개별 게시물 SQL 처리 메소드
 	public BoardDto findById( int bno ) {
 		try {
-			String sql = "select b.* , c.cname , m.mid"
-					+ "	from board as b inner join category as c on b.cno = c.cno"
-					+ "	inner join member as m on b.mno = m.mno where b.bno = 3";
+			String sql = "select b.* , c.cname , m.mid "
+					+ "	from board as b inner join category as c on b.cno = c.cno "
+					+ "	inner join member as m on b.mno = m.mno where b.bno = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt( 1 , bno );
 			ResultSet rs = ps.executeQuery();
@@ -70,4 +71,87 @@ public class BoardDao extends Dao {
 		return null;
 	} // f end
 	
+	// 3. 게시물 쓰기 SQL 메소드
+	public boolean write( BoardDto boardDto ) {
+		try {
+			String sql = "insert into board(btitle,bcontent,cno,mno)"
+					+ " values(?,?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString( 1 , boardDto.getBtitle() );
+			ps.setString( 2 , boardDto.getBcontent() );
+			ps.setInt( 3 , boardDto.getCno() );
+			ps.setInt( 4 , boardDto.getMno() );
+			int count = ps.executeUpdate();
+			if(count == 1 ) return true;
+		}catch( SQLException e ) { System.out.println( e ); }
+		return false;
+	} // f end
+	
+	// 4. 카테고리 전체 조회 SQL 메소드
+	public ArrayList< BoardDto > categoryAll(){
+		ArrayList<BoardDto> list = new ArrayList<BoardDto>();
+		try {
+			String sql = "select * from category";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				BoardDto boardDto = new BoardDto();
+				boardDto.setCno( rs.getInt("cno") );
+				boardDto.setCname( rs.getString("cname") );
+				list.add(boardDto);
+			} // w end
+		}catch( SQLException e ) { System.out.println( e ); }
+		return list;
+	} // f end
+	
+	// 5. 게시물 수정 SQL 메소드
+	public boolean update( BoardDto boardDto ) {
+		try {
+			String sql = "update board set btitle = ? , bcontent = ? "
+					+ " where bno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString( 1 , boardDto.getBtitle() );
+			ps.setString( 2 , boardDto.getBcontent() );
+			ps.setInt( 3 , boardDto.getBno() );
+			int count =  ps.executeUpdate();
+			if( count == 1 ) return true;
+		}catch( SQLException e ) { System.out.println( e ); }
+		return false;
+	} // f end
+	
+	// 6. 게시물 삭제 SQL 메소드 , bno : 삭제할 게시물번호
+	public boolean delete( int bno ) {
+		try {
+		String sql = "delete from board where bno = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt( 1 , bno );
+		int count = ps.executeUpdate();
+		if( count == 1 ) return true;
+		}catch( SQLException e ) { System.out.println( e ); }
+		return false;
+	} // f end
+	
+	
+	// 7. 내가쓴글 확인 SQL 메소드
+		// 매개변수 : bno , mno 특정 게시물(bno)의 작성자(mno) 일치 여부 확인하기
+	public boolean writeCheck( int bno , int mno ) {
+		try {
+			String sql = "select * from board where bno = ? and mno = ?";
+			// 게시물번호와 회원번호가 일치한다
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt( 1 , bno );
+			ps.setInt( 2 , mno );
+			ResultSet rs = ps.executeQuery();
+			if( rs.next() ) { return true; }
+		}catch( SQLException e ) { System.out.println( e ); }
+		return false;
+	} // f end
+	
+	
 } // c end
+
+
+
+
+
+

@@ -8,6 +8,7 @@ public class AppStart {
 		// + 싱글톤의 메소드를 호출하는 방법 : 클래스명.getInstance().메소드명()
 		MemberView.getInstance().run();
 		
+		
 	} // m end
 } // c end
 

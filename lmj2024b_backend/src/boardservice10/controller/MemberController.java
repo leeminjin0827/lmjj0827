@@ -12,10 +12,44 @@ public class MemberController {
 	// - 싱글톤
 	
 	// 1. 회원가입 컨트롤러 메소드
-	public boolean signup( MemberDto memberDto ) {
+	public int signup( MemberDto memberDto ) {
 		// * 다양한 유효성검사를 넣을 예정
+		// 1. 아이디 길이 검사 : 사용자로부터 입력받은 아이디의 길이가 5미만 이거나 30초과 하면 실패
+		if( memberDto.getMid().length() < 5 || memberDto.getMid().length() > 30 ) {
+			return 1;
+		} // if end
+			
+		// 2. 아이디 중복 검사
+		if(MemberDao.getInstance().check("mid", memberDto.getMid() ) ) {
+			return 7;
+		} // if end
+		
+		// 3. 비밀번호 길이 검사
+		if( memberDto.getMpwd().length() < 5 || memberDto.getMpwd().length() > 30 ) {
+			return 2;
+		} // if end
+		
+		// 4. 이름 길이 검사
+		if( memberDto.getMname().length() < 2 || memberDto.getMname().length() > 20 ) {
+			return 3;
+		} // if end
+		
+		// 5. 연락처 - 검사 , 길이검사
+		String[] phones = memberDto.getMphone().split("-");
+		// if( phones.length == 3 && phones[0].charAt(0) == 0 ) { } // 연락처가 - 이용해서 3개로 쪼개지면서 연락처 첫 숫자가 0인지 검사
+		if( phones.length != 3 || memberDto.getMphone().length() != 13 ) { // 연락처가 - 이용해서 3개로 쪼개지면서 연락처의 길이가 13인지 검사
+			return 4;
+		} // if end
+		
+		// 6, 연락처 중복 검사
+		if( MemberDao.getInstance().check("mphone", memberDto.getMphone() ) ) {
+			return 8;
+		} // if end
+		
 		boolean result = MemberDao.getInstance().signup( memberDto );
-		return result;
+		if( result ) { return 5; }
+		else { return 6; }
+		
 	} // f end
 	
 	// 2-1. 로그인 컨트롤러 메소드
@@ -31,10 +65,8 @@ public class MemberController {
 		// 회원번호( 1번시작하므로 ) 를 반환받아서 0이면 없는 회원번호 , 0초과이면 있는 회원번호 // 설계
 		if( result > 0 ) { // 로그인 성공
 			loginMno = result; // 로그인 성공시 로그인저장변수에 로그인성공한 회원번호 저장
-			return true;
-		}else { 
-			return false;
-		} // if end
+			return true; }
+		else { return false; } // if end
 	} // f end
 	
 	// 2-2. 로그아웃 컨트롤러 메소드
@@ -71,7 +103,7 @@ public class MemberController {
 	// 7. 회원수정 컨트롤러 메소드
 	public boolean update( MemberDto memberDto ) {
 		// + 누구를 수정 할껀지 , 현재 로그인 회원이 수정 하므로 현재로그인된 회원번호를 dto 담아주기.
-		memberDto.setMno(loginMno);
+		memberDto.setMno(loginMno); //
 		boolean result = MemberDao.getInstance().update( memberDto );
 		return result;
 	} // f end

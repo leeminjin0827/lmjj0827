@@ -35,9 +35,24 @@ public class MemberView {
 		System.out.println("이름 : ");	String mname = scan.next();
 		System.out.println("전화번호 : ");	String mphone = scan.next();
 		MemberDto memberDto = new MemberDto(mid , mpwd , mname , mphone);
-		boolean result = MemberController.getInstance().signup( memberDto );
-		if( result ) { System.out.println("[회원가입 성공]"); }
-		else { System.out.println("[회원가입 실패]"); }
+		int result = MemberController.getInstance().signup( memberDto );
+		if( result == 1 ) {
+			System.out.println("[아이디 길이를 5~30 사이로 해주세요.]"); 
+		}else if( result == 2 ){
+			System.out.println("[비밀번호 길이를 5~30 사이로 해주세요.]");		
+		}else if( result == 3 ){
+			System.out.println("[이름 길이를 2~20 사이로 해주세요.");
+		}else if( result == 4 ) {
+			System.out.println("[연락처를 000-0000-0000 형식으로 입력해주세요.");
+		}else if( result == 5 ) {
+			System.out.println("[회원가입 성공]");
+		}else if( result == 6 ) {
+			System.out.println("[회원가입 실패] + 관리자에게 문의");
+		}else if( result == 7 ) {
+			System.out.println("[현재 사용중인 아이디 입니다.]");
+		}else if( result == 8 ) {
+			System.out.println("[현재 사용중인 연락처 입니다.]");
+		}
 	} // f end
 	
 	// 2-1. 로그인 화면 메소드
@@ -46,12 +61,14 @@ public class MemberView {
 		System.out.println("아이디 : ");		String mid = scan.next();
 		System.out.println("비밀번호 : ");	String mpwd = scan.next();
 		MemberDto memberDto = new MemberDto();
-		memberDto.setMid(mid);	memberDto.setMpwd(mpwd);
+		memberDto.setMid(mid);	
+		memberDto.setMpwd(mpwd);
+		System.out.println(memberDto);
 		boolean result = MemberController.getInstance().login( memberDto );
 		if( result ) {
 			System.out.println("[로그인 성공]");
 			// BoardView 메인메뉴 메소드 호출
-			BoardView.getInstance().index();
+			 BoardView.getInstance().index();
 		}else { System.out.println("[동일한 회원정보가 없습니다.]"); }
 	} // f end
 	
@@ -138,6 +155,7 @@ public class MemberView {
 		System.out.println("새로운 전화번호 : ");	String mphone = scan.next();
 		MemberDto memberDto = new MemberDto();
 		memberDto.setMpwd(mpwd); memberDto.setMname(mname); memberDto.setMphone(mphone);
+		System.out.println(memberDto);
 		boolean result = MemberController.getInstance().update( memberDto );
 		if( result ) { System.out.println("[수정 완료]"); }
 		else { System.out.println("[수정 실패]"); }
